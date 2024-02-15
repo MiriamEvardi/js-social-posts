@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            "image": ""
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -86,13 +86,13 @@ posts.forEach((currentPost) => {
                 <div class="post__footer">
                     <div class="likes js-likes">
                         <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#" data-postid="1">
+                            <a class="like-button  js-like-button" href="#" data-postid="${currentPost.id}">
                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                 <span class="like-button__label">Mi Piace</span>
                             </a>
                         </div>
                         <div class="likes__counter">
-                             Piace a <b id="like-counter-1" class="js-likes-counter">${currentPost.likes}</b> persone
+                             Piace a <b id="like-counter-${currentPost.id}" class="js-likes-counter">${currentPost.likes}</b> persone
                         </div>
                     </div>
                 </div>
@@ -102,3 +102,29 @@ posts.forEach((currentPost) => {
     container.appendChild(postElement);
 
 });
+
+
+const likeButtonElement = document.querySelectorAll(".like-button");
+
+
+likeButtonElement.forEach((likes) => {
+    likes.addEventListener("click", () => {
+
+        event.preventDefault()
+
+        const postId = likes.getAttribute("data-postid");
+        const likeCounter = document.querySelector(`#like-counter-${postId}`);
+        const isLiked = likes.classList.toggle("liked");
+        const currentLikes = parseInt(likeCounter.textContent);
+
+        if (isLiked) {
+            likes.classList.add("liked");
+            likeCounter.textContent = currentLikes + 1;
+        } else {
+            likes.classList.remove("liked");
+            likeCounter.textContent = currentLikes - 1;
+        }
+    })
+})
+
+
