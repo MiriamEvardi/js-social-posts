@@ -60,9 +60,13 @@ const posts = [
 const postElement = document.getElementById("container");
 
 
+
 posts.forEach((currentPost) => {
     const postElement = document.createElement("div");
     postElement.classList.add("post");
+    const date = new Date(currentPost.created);
+    const formattedDate = date.toLocaleDateString('it-IT');
+
 
     postElement.innerHTML += `
 
@@ -73,7 +77,7 @@ posts.forEach((currentPost) => {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${currentPost.author.name}</div>
-                           <div class="post-meta__time">${currentPost.created}</div>
+                           <div class="post-meta__time">${formattedDate}</div>
                         </div>
                     </div>
                 </div>
@@ -128,8 +132,6 @@ likeButtonElement.forEach((likes) => {
             likeCounter.textContent = currentLikes - 1;
             likeArray.splice(indexToRemove, 1);
         }
-
-
     })
 })
 
