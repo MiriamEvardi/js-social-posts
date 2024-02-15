@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": ""
+            "image": null
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -68,19 +68,45 @@ posts.forEach((currentPost) => {
     const formattedDate = date.toLocaleDateString('it-IT');
 
 
-    postElement.innerHTML += `
+    let authorInitials = '';
+    if (currentPost.author.name) {
+        const nameParts = currentPost.author.name.split(' ');
+        authorInitials = nameParts.map(part => part.charAt(0)).join('');
+    }
 
-                <div class="post__header">
-                    <div class="post-meta">
-                        <div class="post-meta__icon">
-                            <img class="profile-pic" src="${currentPost.author.image}" alt=" ${currentPost.author.name} photo">
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${currentPost.author.name}</div>
-                           <div class="post-meta__time">${formattedDate}</div>
-                        </div>
+
+    if (currentPost.author.image !== null) {
+        postElement.innerHTML += `
+            <div class="post__header">
+                <div class="post-meta">
+                    <div class="post-meta__icon">
+                        <img class="profile-pic" src="${currentPost.author.image}" alt="${currentPost.author.name} photo">
+                    </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">${currentPost.author.name}</div>
+                        <div class="post-meta__time">${formattedDate}</div>
                     </div>
                 </div>
+            </div>
+        `;
+    } else {
+        postElement.innerHTML += `
+            <div class="post__header">
+                <div class="post-meta">
+                <div class="profile-pic-default">
+                <span>${authorInitials}</span>
+                </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">${currentPost.author.name}</div>
+                        <div class="post-meta__time">${formattedDate}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+
+    postElement.innerHTML += `
                 <div class="post__text">
                     ${currentPost.content}
                 </div>
