@@ -121,6 +121,7 @@ h1 {
 }
 
 .liked {
+    background-color: #023047;
     color: #0CD977;
     cursor: default;
 }
