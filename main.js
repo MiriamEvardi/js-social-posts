@@ -129,7 +129,7 @@ posts.forEach((currentPost) => {
         
             `;
 
-    container.appendChild(postElement);
+    container.append(postElement);
 
 });
 
@@ -139,9 +139,9 @@ const likeArray = []
 
 
 likeButtonElement.forEach((likes) => {
-    likes.addEventListener("click", () => {
+    likes.addEventListener("click", (e) => {
 
-        event.preventDefault()
+        e.preventDefault()
 
         const postId = likes.dataset.postid;
         const likeCounter = document.querySelector(`#like-counter-${postId}`);
@@ -150,11 +150,9 @@ likeButtonElement.forEach((likes) => {
         const indexToRemove = likeArray.indexOf(postId);
 
         if (isLiked) {
-            likes.classList.add("liked");
             likeCounter.textContent = currentLikes + 1;
             likeArray.push(postId)
         } else {
-            likes.classList.remove("liked");
             likeCounter.textContent = currentLikes - 1;
             likeArray.splice(indexToRemove, 1);
         }
